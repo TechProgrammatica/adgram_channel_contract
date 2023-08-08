@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package proto;
+
+message Channel {
+  string ID = 1;
+  string pic = 2;
+  string link = 3;
+  string name = 4;
+  string ChanelType = 5;
+  uint32 topic = 6;
+  uint64 language = 7;
+  string description = 8;
+  message Formats {
+    uint64 h24 = 1;
+    uint64 h48 = 2;
+    uint64 h72 = 3;
+    uint64 nativ = 4;
+    uint64 noDelete = 5;
+    uint64 repost = 6;
+    uint64 discount = 7;
+  }
+  bool authorChannel = 9;
+}
+
+enum ChanelType {
+  PublicChannel = 0;
+  Group = 1;
+}
+
+message ChannelsResponse {
+  repeated Channel channels = 1;
+}
+
+message ChannelResponse {
+  oneof response  {
+    Channel channel = 1;
+    ErrorResponse error = 2;
+  }
+}
+message ErrorResponse {
+  string message = 1;
+}
+
+message DeleteResponse {
+  oneof response {
+    bool success = 1;
+    ErrorResponse error = 2;
+  }
+}
+message Empty {}
+
+message ChannelID {
+  string ID = 1;
+}
+
+
+service ChannelService {
+  rpc Channel(ChannelID) returns (ChannelResponse) {}
+  rpc Channels(Empty) returns (ChannelsResponse) {}
+  rpc Create(Channel) returns (ChannelResponse) {}
+  rpc Update(Channel) returns (ChannelResponse) {}
+  rpc Delete(ChannelID) returns (DeleteResponse) {}
+}
