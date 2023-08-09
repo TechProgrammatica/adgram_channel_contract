@@ -1,3 +1,3 @@
-module TechProgrammatica/adgram_channel_contract
+module contract
 
 go 1.20
