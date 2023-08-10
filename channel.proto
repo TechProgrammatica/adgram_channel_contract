@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package proto;
 
-message Channel {
+option go_package = "https://github.com/TechProgrammatica/adgram_channelservice";
+
+message ChannelRequest {
   string ID = 1;
   string pic = 2;
   string link = 3;
@@ -29,12 +31,12 @@ enum ChanelType {
 }
 
 message ChannelsResponse {
-  repeated Channel channels = 1;
+  repeated ChannelRequest channels = 1;
 }
 
 message ChannelResponse {
   oneof response  {
-    Channel channel = 1;
+    ChannelRequest channel = 1;
     ErrorResponse error = 2;
   }
 }
@@ -58,7 +60,7 @@ message ChannelID {
 service ChannelService {
   rpc Channel(ChannelID) returns (ChannelResponse) {}
   rpc Channels(Empty) returns (ChannelsResponse) {}
-  rpc Create(Channel) returns (ChannelResponse) {}
-  rpc Update(Channel) returns (ChannelResponse) {}
+  rpc Create(ChannelRequest) returns (ChannelResponse) {}
+  rpc Update(ChannelRequest) returns (ChannelResponse) {}
   rpc Delete(ChannelID) returns (DeleteResponse) {}
 }
