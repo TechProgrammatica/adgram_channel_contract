@@ -22,7 +22,8 @@ message ChannelRequest {
     uint64 repost = 6;
     uint64 discount = 7;
   }
-  bool authorChannel = 9;
+  Formats formats = 9;
+  bool authorChannel = 10;
 }
 
 enum ChanelType {
@@ -50,7 +51,15 @@ message DeleteResponse {
     ErrorResponse error = 2;
   }
 }
-message Empty {}
+
+message Role {
+  Roles roles = 1;
+}
+
+enum Roles{
+  OWNER = 0;
+  ADVERTISER = 1;
+}
 
 message ChannelID {
   string ID = 1;
@@ -59,7 +68,7 @@ message ChannelID {
 
 service ChannelService {
   rpc Channel(ChannelID) returns (ChannelResponse) {}
-  rpc Channels(Empty) returns (ChannelsResponse) {}
+  rpc Channels(Role) returns (ChannelsResponse) {}
   rpc Create(ChannelRequest) returns (ChannelResponse) {}
   rpc Update(ChannelRequest) returns (ChannelResponse) {}
   rpc Delete(ChannelID) returns (DeleteResponse) {}
