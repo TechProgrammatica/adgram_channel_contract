@@ -9,7 +9,7 @@ message ChannelRequest {
   string pic = 2;
   string link = 3;
   string name = 4;
-  string ChanelType = 5;
+  uint32 ChanelType = 5;
   uint32 topic = 6;
   uint64 language = 7;
   string description = 8;
